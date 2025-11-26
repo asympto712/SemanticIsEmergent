@@ -1,3 +1,13 @@
+---
+const { pageTitle } = Astro.props;
+const navItems = [
+	{title: 'Home', href: '/'},
+	{title: 'About', href: '/about'},
+	{title: 'Blog', href: '/blog'}
+];
+import CoolNav from "../components/CoolNav.astro";
+import BgPattern from "../components/BgPattern.astro";
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +15,40 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{pageTitle} website</title>
 	</head>
 	<body>
+		<div class="pageTitleBox">
+			<h1>{pageTitle}</h1>
+		</div>
+		<CoolNav items={navItems}></CoolNav>
 		<slot />
 	</body>
 </html>
 
 <style>
-	html,
 	body {
 		margin: 0;
+		padding: 20pt;
 		width: 100%;
 		height: 100%;
+		background-image: url('src/assets/simpleDot.svg');
+		background-repeat: repeat;
+		background-size: 80px 80px;
 	}
+
+	.pageTitleBox {
+		position: static;
+		text-align: center;
+		border: 2pt solid black;
+		padding: 0;
+		margin: 2rem 0 0;
+		transform: skewX(-40deg);
+	}
+	.pageTitleBox > h1 {
+		padding: 0;
+		margin: 0;
+		transform: skewX(40deg);
+	}
+
 </style>

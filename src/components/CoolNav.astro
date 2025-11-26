@@ -1,0 +1,23 @@
+---
+const { items } = Astro.props;
+---
+<style>
+  .nav-item {
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    border: 2pt solid violet;
+    transform: skewX(-40deg);
+    margin: 0 0;
+    padding: 0.5rem 2rem;
+  }
+</style>
+
+<div>
+  {items.map((item:any) => (
+    <div class="nav-item">
+      <a href={item.href}>{item.title}</a>
+    </div>
+  ))}
+</div>
+
