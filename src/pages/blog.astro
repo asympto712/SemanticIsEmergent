@@ -1,16 +1,45 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { render, getCollection } from 'astro:content'
+
 const pageTitle = "Blog";
-const posts = Object.values(import.meta.glob('./posts/*.md', {eager: true}));
+const posts = await getCollection('blog');
 ---
 
 <Layout pageTitle={pageTitle}>
-  <div>
+  <div class="blogList">
     <ul>
-      {posts.map((post:any) => (
-        <li><a href={post.url}>{post.frontmatter.title}</a></li>
-      ))}
+      {posts.map((post: any) =>
+      <li>
+        <div>
+        <a href=`posts/${post.id}`>{post.data.title}</a>
+        <br /> {post.data.pubDate.toLocaleDateString('en-US')}
+        </div>
+      </li>
+      )}
     </ul>
   </div>
 
 </Layout>
+
+<style>
+  .blogList ul {
+    list-style-type: none;
+  }
+  .blogList li {
+    border-width: 2pt 0 0 0;
+    border-style: solid;
+    border-collapse: collapse;
+    padding: 2rem 2rem;
+  }
+
+  .blogList li:nth-child(odd) {
+    background-color: #00ffff50;
+    transform: skewX(-20deg);
+  }
+
+  .blogList li:nth-child(even) {
+    background-color: #ff00ff50;
+    transform: skewX(20deg);
+  }
+</style>
