@@ -1,0 +1,16 @@
+---
+import BlogRouter from "../components/BlogRouter.astro";
+const items1 = [
+  'apple',
+  'banana',
+  'orange'
+];
+const items2 = [
+  'dog',
+  'cat',
+  'snake'
+];
+---
+
+<BlogRouter groupName="fruits" items={items1}></BlogRouter>
+<BlogRouter groupName="pets" items={items2}></BlogRouter>

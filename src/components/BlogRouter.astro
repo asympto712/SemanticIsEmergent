@@ -1,0 +1,51 @@
+---
+const { groupName, items } = Astro.props;
+---
+<div>
+  <input type="checkbox" id=`${groupName}` class="dropdown">
+  <label for=`${groupName}`>{groupName}</label>
+  <div class="dropdown-content">
+    <ul>
+      {items.map((item:any) => (
+        <li><a href=`../posts/${item}/`>{item}</a></li>
+      ))}
+  </div>
+</div>
+<style>
+  .dropdown {
+    position: relative;
+    visibility: hidden;
+  }
+  .dropdown-content ul {
+    list-style-type: square;
+    list-style-position: inside;
+    border: 1pt solid black;
+    margin-top: 0;
+  }
+  .dropdown ~ label {
+    display: inline-block;
+    color: hsl(250, 61%, 89%);
+    font-size: 1em;
+    text-shadow: 2pt 2pt hsl(250, 61%, 20%);
+    border: 1pt solid black;
+    margin-bottom: 0;
+  }
+  .dropdown ~ label::before {
+    content: "> "
+  }
+  .dropdown-content {
+    display: none;
+  }
+  .dropdown:checked ~ label {
+    color: hsl(250, 61%, 50%);
+    text-shadow: 0 0;
+    transform: translate(1pt, 1pt);
+    font-weight: 700;
+  }
+  .dropdown:checked ~ label::before {
+    content: "▽ "
+  }
+  .dropdown:checked ~ .dropdown-content{
+    display: unset;
+  }
+</style>

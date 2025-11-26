@@ -1,45 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { render, getCollection } from 'astro:content'
+import BlogList from "../components/BlogList.astro";
+import { set } from "astro:schema";
+import BlogRouter from "../components/BlogRouter.astro";
 
 const pageTitle = "Blog";
 const posts = await getCollection('blog');
+const uniqueTags = [...new Set(posts.map((post:any) => post.data.tags).flat())];
 ---
 
 <Layout pageTitle={pageTitle}>
-  <div class="blogList">
-    <ul>
-      {posts.map((post: any) =>
-      <li>
-        <div>
-        <a href=`posts/${post.id}`>{post.data.title}</a>
-        <br /> {post.data.pubDate.toLocaleDateString('en-US')}
-        </div>
-      </li>
-      )}
-    </ul>
+  <div class="flex-container-main-screen">
+    <div class="main-screen-left">
+      <BlogRouter groupName="tags" items={uniqueTags} />
+    </div>
+    <div class="main-screen-center">
+      <BlogList posts={posts} />
+    </div>
   </div>
-
 </Layout>
 
 <style>
-  .blogList ul {
-    list-style-type: none;
+  .flex-container-main-screen {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
   }
-  .blogList li {
-    border-width: 2pt 0 0 0;
-    border-style: solid;
-    border-collapse: collapse;
-    padding: 2rem 2rem;
+  .main-screen-center {
+    flex-basis: 70%;
+    border: 1pt solid black;
   }
-
-  .blogList li:nth-child(odd) {
-    background-color: #00ffff50;
-    transform: skewX(-20deg);
-  }
-
-  .blogList li:nth-child(even) {
-    background-color: #ff00ff50;
-    transform: skewX(20deg);
+  .main-screen-left {
+    flex-basis: 15%;
+    position: relative;
+    border: 1pt solid black;
   }
 </style>
