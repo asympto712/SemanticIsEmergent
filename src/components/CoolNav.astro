@@ -2,22 +2,45 @@
 const { items } = Astro.props;
 ---
 <style>
-  .nav-item {
+  .nav-bar {
     position: relative;
     display: inline-block;
     background-color: white;
     border: 2pt solid violet;
     transform: skewX(-40deg);
+  }
+  ul {
+    list-style-type: none;
+    /* overflow: hidden; */
+    display: flex;
+    margin: 1rem 0;
+    padding: 0;
+  }
+  ul li {
+    /* float: left; */
+    transform: skewX(40deg);
     margin: 0 0;
-    padding: 0.5rem 2rem;
+    padding: 0rem 2rem;
+    /* border: 1pt solid black; */
+  }
+  ul li a {
+    text-decoration:none;
+    /* margin: 0 0;
+    padding: 0.5rem 2rem; */
+  }
+  ul li a:hover {
+    background-color: aquamarine;
+    font-weight: 800;
   }
 </style>
 
-<div>
+<div class="nav-bar">
+  <ul>
   {items.map((item:any) => (
-    <div class="nav-item">
+    <li>
       <a href={item.href}>{item.title}</a>
-    </div>
+    </li>
   ))}
+  </ul>
 </div>
 
