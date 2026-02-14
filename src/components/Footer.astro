@@ -1,0 +1,56 @@
+---
+const email = "keigo20736@gmail.com";
+const author = "Keigo Kurokawa(黒川 圭吾)"
+const github = "asympto712";
+const thisYear = "2026";
+const message = "Semantics is emergent."
+---
+
+<div id="footer">
+  <div>
+    Email <a href=`mailto:${email}`>{email}</a>
+  </div>
+  <div>
+    {thisYear} <br/>
+    {author} <br/>
+    <strong>{message}</strong>
+  </div>
+  <div>
+    Links
+    <ul class="list-style-none">
+      <li>
+        <a href=`https://github.com/${github}` target="_blank">
+        <img src="../../public/github-142-svgrepo-com.svg" alt="github logo" style="width:20px;height:20px;">
+        {github}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  #footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: orangered;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  #footer div {
+    margin: 10px;
+    padding: 0px;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  #footer a {
+    color: lightblue;
+  }
+
+  .list-style-none {
+    list-style-type: none;
+  }
+</style>
