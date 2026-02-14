@@ -1,0 +1,80 @@
+---
+import "../styles/font.css";
+import BgPattern from "../components/BgPattern.astro";
+interface Props {
+  title: string;
+  pubDate: Date;
+  language: string;
+  lastUpdate?: Date;
+  tags: string[];
+};
+const props = Astro.props;
+const lastUpdate = props.lastUpdate? props.lastUpdate : props.pubDate;
+
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{props.title}</title>
+  </head>
+  <body>
+    <a href="/blog/" class="color-white">Back to blog list</a>
+    <div id="blogDiv">
+      <article>
+      <h1>{props.title}</h1>
+      <h3>published: {props.pubDate.getFullYear()}-{props.pubDate.getMonth() + 1}-{props.pubDate.getDate()}</h3>
+      <h3>last updated: {lastUpdate.getFullYear()}-{lastUpdate.getMonth() + 1}-{lastUpdate.getDate()}</h3>
+      <h3>language: {props.language}</h3>
+      <h3>tags:</h3>
+      <ul class="tagList">{props.tags.map((tag: string) => {
+        return <li>{tag}</li>;
+      })}</ul>
+      <br/>
+      <div>
+      <slot />
+      </div>
+      </article>
+    </div>
+  </body>
+</html>
+
+<style>
+  .color-white {
+    color: white;
+  }
+  .color-white:hover {
+    color: orange;
+  }
+  body {
+    background-color: rgb(22, 85, 22);
+  }
+  #blogDiv {
+    border-radius: 3rem;
+    border: 2px solid white;
+    margin: 20px auto;
+    padding: 0 10pt;
+    width: 60%;
+    background-color: rgb(231, 170, 89);
+  }
+
+  .tagList {
+    list-style-type: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5pt auto;
+  }
+  .tagList li {
+    float: left;
+    color: white;
+    background-color: blueviolet;
+    border-radius: 8pt;
+    padding: 0 5pt;
+    margin: 5pt;
+    text-align: center;
+  }
+</style>
+
+<script>
+</script>
