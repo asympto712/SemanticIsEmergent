@@ -7,11 +7,14 @@ import mdx from '@astrojs/mdx';
 
 import react from '@astrojs/react';
 
+import netlify from '@astrojs/netlify';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
 
-  integrations: [mdx(), react()]
+  integrations: [mdx(), react()],
+  adapter: netlify()
 });
