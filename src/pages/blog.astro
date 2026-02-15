@@ -6,7 +6,9 @@ import { set } from "astro:schema";
 import BlogRouter from "../components/BlogRouter.astro";
 
 const pageTitle = "Blog";
-const posts = await getCollection('blog');
+let posts = await getCollection('blog');
+posts = posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+
 const uniqueTags = [...new Set(posts.map((post:any) => post.data.tags).flat())];
 ---
 

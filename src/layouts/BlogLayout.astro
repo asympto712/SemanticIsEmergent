@@ -32,7 +32,7 @@ const lastUpdate = props.lastUpdate? props.lastUpdate : props.pubDate;
         return <li>{tag}</li>;
       })}</ul>
       <br/>
-      <div>
+      <div class="font-size-small">
       <slot />
       </div>
       </article>
@@ -73,6 +73,10 @@ const lastUpdate = props.lastUpdate? props.lastUpdate : props.pubDate;
     padding: 0 5pt;
     margin: 5pt;
     text-align: center;
+  }
+  
+  .font-size-small {
+    font-size: small;
   }
 </style>
 
