@@ -1,0 +1,75 @@
+---
+const { props } = Astro.props;
+---
+
+<svg width="500" height="500" viewBox="0 0 100 100" fill="#336666" xmlns="http://www.w3.org/2000/svg">
+  <!-- Render multiple ellipses directly -->
+  {Array.from({ length: 25 }).map((_, i) => {
+    const x = 10 + (i % 5) * 20;
+    const y = 10 + Math.floor(i / 5) * 20;
+    return (
+      <g class="slimeG" transform-origin=`${x} ${y}`>
+        <ellipse rx="3" ry="3" cx={x} cy={y} style="fill:rgba(57, 185, 57, 0.805);stroke:none;" class="slime" />
+      </g>
+    );
+  })}
+</svg>
+
+<script>
+  const slimeRot = [
+    { transform: "rotate(0)"},
+    { transform: "rotate(60deg)"},
+    { transform: "rotate(120deg)"},
+    { transform: "rotate(180deg)"},
+    { transform: "rotate(240deg)"},
+    { transform: "rotate(300deg)"},
+    { transform: "rotate(360deg)"},
+  ];
+  const slimeMorph = [
+    { rx: "3", ry: "3" },
+    { rx: "8", ry: "3" },
+    { rx: "3", ry: "8"},
+    { rx: "3", ry: "3" },
+  ];
+  const Timing = {
+    duration: 3000,
+    iterations: Infinity,
+  };
+
+  const slimes = document.querySelectorAll('.slimeG');
+  slimes.forEach((slimeG) => {
+    let animation: Animation = null;
+    let animationG: Animation = null;
+    let timeoutId = null;
+    let timeoutIdG = null;
+    const slime = slimeG.querySelector(".slime");
+
+    // mouse enter
+    slimeG.addEventListener('mouseenter', () => {
+      if (animationG) animationG.cancel();
+      animationG = slimeG.animate(slimeRot, Timing);
+    })
+    slime?.addEventListener('mouseenter', () => {
+      if (animation) animation.cancel();
+      animation = slime.animate(slimeMorph, Timing);
+    });
+
+    // mouse out
+    slimeG.addEventListener('mouseout', () => {
+      if (timeoutIdG) clearTimeout(timeoutIdG);
+      timeoutIdG = setTimeout(() => {
+        if (animationG) animationG.cancel();
+        slimeG.setAttribute("transform", "rotate(0)");
+      }, 1000);
+    })
+    slime?.addEventListener('mouseout', () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (animation) animation.cancel();
+        // Reset to original state
+        slime.setAttribute('rx', '3');
+        slime.setAttribute('ry', '3');
+      }, 1000);
+    });
+  });
+</script>

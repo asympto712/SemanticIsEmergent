@@ -1,45 +1,50 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import BasicLayout from "../layouts/BasicLayout.astro";
+import Squirm from "../components/Squirm.astro";
+import Thump from "../components/Thump.astro";
 const pageTitle = "Onomatopoeia (オノマトペ)"
 ---
 
-<Layout pageTitle={pageTitle}>
+<BasicLayout pageTitle={pageTitle}>
   <div>
     <br/>
     <i>"Onomatopoeia is a type of word, or the process of creating a word, that phonetically imitates, resembles, or suggests a sound that it refers to"</i>
     <p>From wikipedia</p>
   </div>
-  <div>
-    <h1>"thump thump thump..." (パタンパタンパタン。。)</h1>
-    <button id="animateBtn">animate</button>
-    <br/>
-    <svg width="400" height="800" viewBox="-100 -100 200 400" xmlns="http://www.w3.org/2000/svg">
-      <rect x="-100" y="-100" width="100%" height="100%" style="fill:rgb(131, 131, 131);stroke:black;stroke-width:0.5"></rect>
-      <g id="rootG">
-      <rect id="initRect" x="-40" y="-40" width="80" height="40" style="fill:blue;stroke:red;stroke-width:1;fill-opacity:0.3;"
-      transform="skewX(30)">
-      </rect>
-      <!-- <animateTransform
-        attributeName="transform"
-        begin="0s"
-        dur="1s"
-        type="scale"
-        from="1,1"
-        to="1,-1"
-        calcMode="spline"
-        keyTimes="0; 1"
-        keySplines="0.7 0.1 1 0.2"
-        repeatCount="1"
-        fill="freeze"
-        /> -->
-      </g>
-    </svg>
-    <br/>
+
+  <div class="flex-container">
+
+    <div>
+      <h1>"thump thump thump..." (パタンパタンパタン。。)</h1>
+      <button id="animateBtn">animate</button>
+      <div>
+        <Thump/>
+      </div>
+    </div>
+    
+    <div>
+      <h1>squirm (モゾモゾ)</h1>
+      <div style="background-color: rgb(198, 105, 42);">
+      <Squirm/>
+      </div>
+    </div>
+
   </div>
 
-</Layout>
+</BasicLayout>
+
+<style>
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-evenly ;
+    align-items: center;
+  }
+</style>
 
 <script>
+  // ===================================== functions for thump thump thump that I could not modulize
   function spawnG(n: number) : SVGGElement {
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('id', `g${n}`);
@@ -86,28 +91,6 @@ const pageTitle = "Onomatopoeia (オノマトペ)"
     }
   }
 
-  function animate() {
-    const g2 = document.getElementById("g2");
-    g2?.remove();
-    const g1 = document.getElementById("g1");
-    const rect1 = document.getElementById("rect1");
-    rect1?.animate(fillColChange1, patanTiming);
-    const anim = g1?.animate(patan, patanTiming);
-    anim?.addEventListener("finish", (event) => {
-      const newG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      newG.setAttribute("transform-origin", "0 40");
-      newG.setAttribute("id", "g2");
-      const rect2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      rect2.setAttribute("id", "rect2");
-      rect2.setAttribute('width', '80');
-      rect2.setAttribute('height', '40');
-      rect2.setAttribute('x', '40');
-      rect2.setAttribute('y', '0');
-      rect2.setAttribute('transform', 'skewX(-30)');
-      newG?.appendChild(rect2);
-    });
-  }
-
   const patan = [
     { transform: "scale(1,1)"},
     { transform: "scale(1,0.6)", offset: 0.5},
@@ -121,7 +104,7 @@ const pageTitle = "Onomatopoeia (オノマトペ)"
     duration: 1000,
     iterations: 1,
     easing: "ease-in",
-    fill: "forwards"
+    fill: 'forwards'
   };
 
   const fillColChange1 = [
@@ -141,6 +124,5 @@ const pageTitle = "Onomatopoeia (オノマトペ)"
     const btn = document.getElementById("animateBtn");
     btn?.addEventListener("click", () => {beginAnimation(5);});
   });
-  
-
+// ===================================== functions for thump thump thump that I could not modulize
 </script>

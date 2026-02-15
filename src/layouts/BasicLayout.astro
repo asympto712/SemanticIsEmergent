@@ -1,4 +1,6 @@
 ---
+// This is the same as Layout.astro except this does not contain interactive background.
+// This should be preferred for content-heavy page
 const { pageTitle } = Astro.props;
 const navItems = [
 	{title: 'Home', href: '/'},
@@ -8,7 +10,6 @@ const navItems = [
 ];
 import CoolNav from "../components/CoolNav.astro";
 import Footer from "../components/Footer.astro";
-import BgPattern from "../components/BgPattern";
 // import BgPattern from "../components/BgPattern.astro";
 import "../styles/font.css";  // importing my font choices
 ---
@@ -23,12 +24,6 @@ import "../styles/font.css";  // importing my font choices
 		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<!-- Background layer -->
-		<div class="bg-layer">
-			<BgPattern client:load></BgPattern>
-		</div>
-
-		<!-- Content layer -->
 		<div class="pageTitleBox">
 			<h1>{pageTitle}</h1>
 		</div>
@@ -39,8 +34,6 @@ import "../styles/font.css";  // importing my font choices
 		<footer>
 			<Footer/>
 		</footer>
-
-
 	</body>
 </html>
 
@@ -50,9 +43,9 @@ import "../styles/font.css";  // importing my font choices
 		padding: 0 0;
 		width: 100%;
 		height: 100%;
-		/* background-image: url('src/assets/simpleDot.svg');
+		background-image: url('src/assets/simpleDot.svg');
 		background-repeat: repeat;
-		background-size: 80px 80px; */
+		background-size: 80px 80px;
 	}
 
 	.bg-layer {
