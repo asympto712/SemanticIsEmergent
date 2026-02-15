@@ -1,0 +1,92 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function spawnG(n) {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('id', `g${n}`);
+    g.setAttribute('transform-origin', `0 ${String(n * 40)}`);
+    const svg = document.querySelector("svg");
+    svg === null || svg === void 0 ? void 0 : svg.appendChild(g);
+    return g;
+}
+function spawnRect(g, n, flipped) {
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute("id", `rect${n}`);
+    const theta = Math.PI / 6;
+    const y = -40 + n * 40;
+    var x = -40;
+    if (flipped)
+        x = -40 - 40 * Math.tan(theta);
+    rect.setAttribute('transform-origin', `0 ${String(n * 40)}`);
+    rect.setAttribute("x", String(x));
+    rect.setAttribute("y", String(y));
+    rect.setAttribute("width", '80');
+    rect.setAttribute("height", '40');
+    if (flipped) {
+        rect.setAttribute("transform", 'skewX(-30)');
+        rect.setAttribute("style", "fill:green;stroke:red;stroke-width:1;fill-opacity:0.3;");
+    }
+    else {
+        rect.setAttribute("transform", 'skewX(30)');
+        rect.setAttribute("style", "fill:blue;stroke:red;stroke-width:1;fill-opacity:0.3;");
+    }
+    g.appendChild(rect);
+    return rect;
+}
+function beginAnimation(n) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var flipped = false;
+        for (let i = 0; i <= n; i++) {
+            const g = spawnG(i);
+            const rect = spawnRect(g, i, flipped);
+            const anim = g.animate(patan, patanTiming);
+            let colorChange;
+            if (flipped)
+                colorChange = rect.animate(fillColChange2, patanTiming);
+            else
+                colorChange = rect.animate(fillColChange1, patanTiming);
+            if (flipped)
+                flipped = false;
+            else
+                flipped = true;
+            yield anim.finished;
+        }
+    });
+}
+const patan = [
+    { transform: "scale(1,1)" },
+    { transform: "scale(1,0.6)", offset: 0.5 },
+    { transform: "scale(1,0.2)", offset: 0.75 },
+    { transform: "scale(1,0)", offset: 0.825 },
+    { transform: "scale(1,-0.2)", offset: 0.875 },
+    { transform: "scale(1,-0.6)", offset: 0.95 },
+    { transform: "scale(1,-1)" }
+];
+const patanTiming = {
+    duration: 1000,
+    iterations: 1,
+    easing: "ease-in",
+    fill: "forwards"
+};
+const fillColChange1 = [
+    { fill: "blue" },
+    { fill: "blue", offset: 0.825 },
+    { fill: "green", offset: 0.826 },
+    { fill: "green" }
+];
+const fillColChange2 = [
+    { fill: "green" },
+    { fill: "green", offset: 0.825 },
+    { fill: "blue", offset: 0.826 },
+    { fill: "blue" }
+];
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("animateBtn");
+    btn === null || btn === void 0 ? void 0 : btn.addEventListener("click", () => { beginAnimation(5); });
+});
