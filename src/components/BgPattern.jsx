@@ -64,7 +64,7 @@ export default function BgPattern({ xCount = 20, yCount = 10, svgWidth = 1800, s
               ry={smallR}
               cx={x}
               cy={y}
-              style={{ fill: "none", stroke: "lightblue", strokeWidth: "0.5pt"}}
+              style={{ fill: "none", stroke: "lightblue", strokeWidth: "0.5pt", strokeOpacity: "0.4"}}
               className="slime"
             />
           </g>
