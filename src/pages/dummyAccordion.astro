@@ -1,0 +1,17 @@
+---
+// This is for testing accordionBook component behavior
+
+import AccordionBook from "../components/AccordionBook";
+import BasicLayout from "../layouts/BasicLayout.astro";
+
+const blogList = [
+  {link: "/posts/post-101", date: "2027-1-1", title: "foo1"},
+  {link: "/posts/post-102", date: "2027-1-1", title: "foo2"},
+  {link: "/posts/post-103", date: "2027-1-1", title: "foo3"},
+  {link: "/posts/post-104", date: "2027-1-1", title: "foo4"},
+]
+---
+
+<BasicLayout>
+  <AccordionBook list={blogList} client:load />
+</BasicLayout>

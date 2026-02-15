@@ -4,10 +4,18 @@ import { render, getCollection } from 'astro:content'
 import BlogList from "../components/BlogList.astro";
 import { set } from "astro:schema";
 import BlogRouter from "../components/BlogRouter.astro";
+import AccordionBook from "../components/AccordionBook";
 
 const pageTitle = "Blog";
+
 let posts = await getCollection('blog');
 posts = posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+const accordionList = posts.map(post => ({
+  title: post.data.title,
+  date: post.data.pubDate,
+  link: `/posts/${post.slug}`
+}));
+
 
 const uniqueTags = [...new Set(posts.map((post:any) => post.data.tags).flat())];
 ---
@@ -18,7 +26,8 @@ const uniqueTags = [...new Set(posts.map((post:any) => post.data.tags).flat())];
       <BlogRouter groupName="tags" items={uniqueTags} />
     </div>
     <div class="main-screen-center">
-      <BlogList posts={posts} />
+      <!-- <BlogList posts={posts} /> -->
+      <AccordionBook list={accordionList} client:load/>
     </div>
   </div>
 </Layout>
@@ -31,6 +40,7 @@ const uniqueTags = [...new Set(posts.map((post:any) => post.data.tags).flat())];
   }
   .main-screen-center {
     flex-basis: 70%;
+    position: relative;
     /* border: 1pt solid black; */
   }
   .main-screen-left {
