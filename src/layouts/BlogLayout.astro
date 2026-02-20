@@ -1,6 +1,7 @@
 ---
-import "../styles/font.css";
-import BgPattern from "../components/BgPattern.astro";
+// import "../styles/font.css";
+import "../styles/global.css";
+// import BgPattern from "../components/BgPattern.astro";
 interface Props {
   title: string;
   pubDate: Date;
@@ -22,7 +23,8 @@ const lastUpdate = props.lastUpdate? props.lastUpdate : props.pubDate;
   <body>
     <a href="/blog/" class="color-white">Back to blog list</a>
     <div id="blogDiv">
-      <article>
+      <article class="prose prose-slate lg:prose-l mx-auto max-w-3xl px-4 py-10 prose-h1:font-bold">
+      <!-- <article class="bg-red-500"> -->
       <h1>{props.title}</h1>
       <h3>published: {props.pubDate.getFullYear()}-{props.pubDate.getMonth() + 1}-{props.pubDate.getDate()}</h3>
       <h3>last updated: {lastUpdate.getFullYear()}-{lastUpdate.getMonth() + 1}-{lastUpdate.getDate()}</h3>
@@ -32,9 +34,8 @@ const lastUpdate = props.lastUpdate? props.lastUpdate : props.pubDate;
         return <li>{tag}</li>;
       })}</ul>
       <br/>
-      <div class="font-size-small">
+      <br/>
       <slot />
-      </div>
       </article>
     </div>
   </body>
