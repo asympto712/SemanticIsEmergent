@@ -1,10 +1,13 @@
 ---
 title: 'RADWIMPS 前前前世 訳してみた (RADWIMPS "Zenzenzense" translation)'
 pubDate: 2026-02-17
+lastUpdate: 2026-02-20
 author: 'K.K'
 tags: ['personal', 'music', 'translation']
 lang: 'jp/en'
 ---
+
+[Watch on YouTube](https://www.youtube.com/watch?v=PDSkFeMVNFs)
 
 # Me and 'Your Name'
 So there is this Anime film called "Your Name (君の名は。)".
